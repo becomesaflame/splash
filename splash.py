@@ -25,6 +25,20 @@ def fork_exec(command, args):
   else:
     os.execvp(command, args) 
 
+def cd(command, args):
+  """ Change directory"""
+  if len(args) > 2: 
+    print ("-splash: cd: too many arguments")
+  else:
+    try:
+      os.chdir(args[1]) 
+    except (FileNotFoundError): 
+      print ("-splash: cd: %s: No such file or directory" % args[1])
+  
+    # cd called with no arguments
+    except (IndexError):
+      pass
+
 
 while (True):
   args = prompt()
@@ -33,7 +47,7 @@ while (True):
 
   # builtins
   if command == 'cd':
-    os.chdir(args[1]) 
+    cd(command, args)
   elif command == 'exit':
     print("goodbye!")
     exit()
