@@ -39,20 +39,22 @@ def cd(command, args):
     except (IndexError):
       pass
 
+def main():
+  while (True):
+    args = prompt()
+    command = args[0]
+    # print("command: %s \nargs: %s" % (command, args))
 
-while (True):
-  args = prompt()
-  command = args[0]
-  # print("command: %s \nargs: %s" % (command, args))
-
-  # builtins
-  if command == 'cd':
-    cd(command, args)
-  elif command == 'exit':
-    print("goodbye!")
-    exit()
-  else:
-    fork_exec(command, args)
+    # builtins
+    if command == 'cd':
+      cd(command, args)
+    elif command == 'exit':
+      print("goodbye!")
+      exit()
+    else:
+      fork_exec(command, args)
   
+if __name__ == '__main__':
+  main()
 
 
