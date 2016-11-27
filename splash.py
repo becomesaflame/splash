@@ -4,15 +4,18 @@ def prompt():
   """ Prompt the user for a line"""
   try:
     in_string = input("splash$ ")
-    command = in_string.split(' ')[0] 
-    args = in_string.split(' ')
-    return (command, args) 
+
+    # split string, stripping empty strings with filter
+    args = list(filter(None, in_string.split(' ')))
+
+    return args 
   except (NameError, SyntaxError):
     print("Invalid input. \n")
 
 
 while (True):
-  (command, args) = prompt()
+  args = prompt()
+  command = args[0]
   # print("command: %s \nargs: %s" % (command, args))
   p = os.fork()
   if p:
