@@ -10,16 +10,35 @@ def prompt():
 
     return args 
   except (NameError, SyntaxError):
-    print("Invalid input. \n")
+    print("Invalid input.")
+
+  # Exit gracefully with Ctrl-D
+  except (EOFError):
+    print("Goodbye!")
+    exit()
+
+def fork_exec(command, args):
+  """ Fork a new process and execute a command"""
+  p = os.fork()
+  if p:
+    os.waitpid(p, 0)
+  else:
+    os.execvp(command, args) 
 
 
 while (True):
   args = prompt()
   command = args[0]
   # print("command: %s \nargs: %s" % (command, args))
-  p = os.fork()
-  if p:
-    os.waitpid(p, 0)
+
+  # builtins
+  if command == 'cd':
+    os.chdir(args[1]) 
+  elif command == 'exit':
+    print("goodbye!")
+    exit()
   else:
-    os.execvp(command, args) 
+    fork_exec(command, args)
+  
+
 
