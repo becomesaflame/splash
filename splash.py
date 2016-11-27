@@ -12,9 +12,11 @@ def prompt():
 
 
 while (True):
-  print ("prompting\n") 
   (command, args) = prompt()
   # print("command: %s \nargs: %s" % (command, args))
-  if not os.fork():
+  p = os.fork()
+  if p:
+    os.waitpid(p, 0)
+  else:
     os.execvp(command, args) 
 
