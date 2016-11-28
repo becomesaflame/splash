@@ -34,8 +34,18 @@ def cd(command, args):
       os.chdir(args[1]) 
     except (FileNotFoundError): 
       print ("-splash: cd: %s: No such file or directory" % args[1])
-  
     # cd called with no arguments
+    except (IndexError):
+      pass
+
+def echo(command, args):
+  """ Print out the argument"""
+  if len(args) > 2: 
+    print ("-splash: echo: too many arguments")
+  else:
+    try:
+      print (args[1]) 
+    # echo called with no arguments
     except (IndexError):
       pass
 
@@ -48,6 +58,8 @@ def main():
     # builtins
     if command == 'cd':
       cd(command, args)
+    elif command == 'echo':
+      echo(command, args)
     elif command == 'exit':
       print("goodbye!")
       exit()
